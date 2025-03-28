@@ -25,6 +25,7 @@
       background-repeat: no-repeat;
       pointer-events: none;
       opacity: 0.6;
+      z-index: 1;
     }
 
     header {
@@ -37,6 +38,7 @@
       transition: filter 0.5s ease;
       filter: brightness(85%);
       position: relative;
+      z-index: 2;
     }
 
     header:hover {
@@ -130,6 +132,7 @@
       text-align: center;
       font-size: 1.1rem;
       position: relative;
+      z-index: 2;
     }
 
     .logo-footer {
@@ -156,21 +159,28 @@
       });
       document.querySelectorAll('.fade-in, .zoom-in').forEach(el => observer.observe(el));
 
-      // 飄動葉子效果
-      const leafCount = 15;
-      for (let i = 0; i < leafCount; i++) {
-        const leaf = document.createElement('div');
-        leaf.className = 'leaf';
-        leaf.style.left = Math.random() * 100 + 'vw';
-        leaf.style.top = Math.random() * -100 + 'px';
-        document.body.appendChild(leaf);
-      }
+      // 點擊後生成飄動葉子效果
+      const link = document.querySelector('header h1 a');
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        document.getElementById('top').scrollIntoView({ behavior: 'smooth' });
 
-      const leaves = document.querySelectorAll('.leaf');
-      window.addEventListener('deviceorientation', (e) => {
-        leaves.forEach((leaf, index) => {
-          const speed = (index % 5 + 1) * 0.1;
-          leaf.style.transform = `translate(${e.gamma * speed}px, ${e.beta * speed}px)`;
+        // 產生葉子
+        const leafCount = 15;
+        for (let i = 0; i < leafCount; i++) {
+          const leaf = document.createElement('div');
+          leaf.className = 'leaf';
+          leaf.style.left = Math.random() * 100 + 'vw';
+          leaf.style.top = Math.random() * -100 + 'px';
+          document.body.appendChild(leaf);
+        }
+
+        const leaves = document.querySelectorAll('.leaf');
+        window.addEventListener('deviceorientation', (e) => {
+          leaves.forEach((leaf, index) => {
+            const speed = (index % 5 + 1) * 0.1;
+            leaf.style.transform = `translate(${e.gamma * speed}px, ${e.beta * speed}px)`;
+          });
         });
       });
     });
@@ -179,7 +189,7 @@
 </head>
 <body>
   <header class="fade-in">
-    <h1><a href="#top">森永學堂</a></h1>
+    <h1><a href="#top">點擊後才加入了背景 葉子飄動 效果</a></h1>
     <p>Make Every Day a Walk in the Woods.</p>
   </header>
 
@@ -201,9 +211,11 @@
 
   <section class="fade-in">
     <h2>森度之旅 & 森度思考</h2>
-    <p><strong>森度之旅</strong>：我們串連臺大與大溪在地實作夥伴，設計出一日森林體驗活動，</p>
+    <p><strong>森度之旅</strong>：<p>
+    <p> 我們串連臺大與大溪在地實作夥伴，設計出一日森林體驗活動，</p>
     <p>結合木藝手作、溯溪探索與自然導覽，讓參與者深度認識森林與文化的連結。</p>
-    <p><strong>森度思考</strong>：以「六頂思考帽」為核心，與教師共同思考森林議題。</p>
+    <p><strong>森度思考</strong>：<p>
+    <p>以「六頂思考帽」為核心，與教師共同思考森林議題。</p>
     <p>從感性到理性，從觀察到行動，啟發多元的教育策略，賦能教師在課程中實踐永續。</p>
 
     <div class="photos zoom-in">
