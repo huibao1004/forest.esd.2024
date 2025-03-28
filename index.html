@@ -24,8 +24,23 @@
       background-size: contain;
       background-repeat: no-repeat;
       pointer-events: none;
-      opacity: 0.6;
+      opacity: 0.7;
       z-index: 1;
+      animation: fall 6s linear infinite;
+    }
+
+    @keyframes fall {
+      0% {
+        transform: translateY(-100px) rotate(0deg);
+        opacity: 0;
+      }
+      50% {
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(120vh) rotate(360deg);
+        opacity: 0;
+      }
     }
 
     header {
@@ -159,29 +174,46 @@
       });
       document.querySelectorAll('.fade-in, .zoom-in').forEach(el => observer.observe(el));
 
-      // 點擊後生成飄動葉子效果
-      const link = document.querySelector('header h1 a');
-      link.addEventListener('click', (e) => {
+      const createLeaf = () => {
+        const leaf = document.createElement('div');
+        leaf.className = 'leaf';
+        leaf.style.left = Math.random() * 100 + 'vw';
+        leaf.style.animationDuration = (Math.random() * 3 + 4) + 's';
+        document.body.appendChild(leaf);
+        setTimeout(() => leaf.remove(), 8000);
+      };
+
+      let windX = 0;
+      document.addEventListener('mousemove', (e) => {
+        windX = (e.clientX - window.innerWidth / 2) / 50;
+      });
+
+      if (window.DeviceOrientationEvent) {
+        if (typeof DeviceOrientationEvent.requestPermission === 'function') {
+          DeviceOrientationEvent.requestPermission()
+            .then(response => {
+              if (response === 'granted') {
+                window.addEventListener('deviceorientation', (e) => {
+                  windX = e.gamma / 5;
+                });
+              }
+            }).catch(console.error);
+        } else {
+          window.addEventListener('deviceorientation', (e) => {
+            windX = e.gamma / 5;
+          });
+        }
+      }
+
+      const animateLeaves = () => {
+        for (let i = 0; i < 5; i++) createLeaf();
+      };
+
+      document.querySelector('header h1 a').addEventListener('click', (e) => {
         e.preventDefault();
         document.getElementById('top').scrollIntoView({ behavior: 'smooth' });
-
-        // 產生葉子
-        const leafCount = 15;
-        for (let i = 0; i < leafCount; i++) {
-          const leaf = document.createElement('div');
-          leaf.className = 'leaf';
-          leaf.style.left = Math.random() * 100 + 'vw';
-          leaf.style.top = Math.random() * -100 + 'px';
-          document.body.appendChild(leaf);
-        }
-
-        const leaves = document.querySelectorAll('.leaf');
-        window.addEventListener('deviceorientation', (e) => {
-          leaves.forEach((leaf, index) => {
-            const speed = (index % 5 + 1) * 0.1;
-            leaf.style.transform = `translate(${e.gamma * speed}px, ${e.beta * speed}px)`;
-          });
-        });
+        animateLeaves();
+        setInterval(animateLeaves, 2000);
       });
     });
   </script>
@@ -211,11 +243,11 @@
 
   <section class="fade-in">
     <h2>森度之旅 & 森度思考</h2>
-    <p><strong>森度之旅</strong>：<p>
-    <p> 我們串連臺大與大溪在地實作夥伴，設計出一日森林體驗活動，</p>
+    <p><strong>森度之旅</strong>：</p>
+    </p>我們串連臺大與大溪在地實作夥伴，設計出一日森林體驗活動，</p>
     <p>結合木藝手作、溯溪探索與自然導覽，讓參與者深度認識森林與文化的連結。</p>
-    <p><strong>森度思考</strong>：<p>
-    <p>以「六頂思考帽」為核心，與教師共同思考森林議題。</p>
+    <p><strong>森度思考</strong>：</p>
+    </p>以「六頂思考帽」為核心，與教師共同思考森林議題。</p>
     <p>從感性到理性，從觀察到行動，啟發多元的教育策略，賦能教師在課程中實踐永續。</p>
 
     <div class="photos zoom-in">
@@ -237,3 +269,4 @@
   </footer>
 </body>
 </html>
+
