@@ -13,6 +13,18 @@
       background-color: #cae3d1;
       color: #333;
       line-height: 1.8;
+      overflow-x: hidden;
+    }
+
+    .leaf {
+      position: fixed;
+      width: 40px;
+      height: 40px;
+      background-image: url('https://upload.wikimedia.org/wikipedia/commons/4/44/Plain_green_leaf.svg');
+      background-size: contain;
+      background-repeat: no-repeat;
+      pointer-events: none;
+      opacity: 0.6;
     }
 
     header {
@@ -142,8 +154,25 @@
           }
         });
       });
-
       document.querySelectorAll('.fade-in, .zoom-in').forEach(el => observer.observe(el));
+
+      // 飄動葉子效果
+      const leafCount = 15;
+      for (let i = 0; i < leafCount; i++) {
+        const leaf = document.createElement('div');
+        leaf.className = 'leaf';
+        leaf.style.left = Math.random() * 100 + 'vw';
+        leaf.style.top = Math.random() * -100 + 'px';
+        document.body.appendChild(leaf);
+      }
+
+      const leaves = document.querySelectorAll('.leaf');
+      window.addEventListener('deviceorientation', (e) => {
+        leaves.forEach((leaf, index) => {
+          const speed = (index % 5 + 1) * 0.1;
+          leaf.style.transform = `translate(${e.gamma * speed}px, ${e.beta * speed}px)`;
+        });
+      });
     });
   </script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
@@ -156,7 +185,7 @@
 
   <section id="top" class="fade-in">
     <h2>關於我們</h2>
-    <p>森永學堂是一個致力於推廣森林永續教育的團隊。</p>
+    <p><a href="#top">森永學堂</a>是一個致力於推廣森林永續教育的團隊。</p>
     <p>我們相信，透過教育的力量，可以讓更多人了解大自然的價值，培養下一代守護環境的能力。</p>
 
     <h3>我們的目標</h3>
@@ -172,9 +201,9 @@
 
   <section class="fade-in">
     <h2>森度之旅 & 森度思考</h2>
-    <p><strong>森度之旅</strong>：我們串連臺大與大溪在地實作夥伴，設計出一日森林體驗活動，<p>
-      <p>結合木藝手作、溯溪探索與自然導覽，讓參與者深度認識森林與文化的連結。</p>
-    <p><strong>森度思考</strong>：以「六頂思考帽」為核心，與教師共同思考森林議題。<p>
+    <p><strong>森度之旅</strong>：我們串連臺大與大溪在地實作夥伴，設計出一日森林體驗活動，</p>
+    <p>結合木藝手作、溯溪探索與自然導覽，讓參與者深度認識森林與文化的連結。</p>
+    <p><strong>森度思考</strong>：以「六頂思考帽」為核心，與教師共同思考森林議題。</p>
     <p>從感性到理性，從觀察到行動，啟發多元的教育策略，賦能教師在課程中實踐永續。</p>
 
     <div class="photos zoom-in">
