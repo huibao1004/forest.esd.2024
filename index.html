@@ -6,10 +6,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>森永學堂</title>
   <style>
+     @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;700&display=swap');
     body {
       margin: 0;
       font-family: 'Arial', sans-serif;
-      background-color: #f6f8f5;
+      background-color: #e6f4ea;
       color: #333;
       line-height: 1.8;
     }
@@ -19,10 +20,10 @@
       background-size: cover;
       background-position: center;
       color: white;
-      padding: 8rem 2rem 4rem;
+      padding: 10rem 2rem 4rem;
       text-align: center;
       transition: filter 0.5s ease;
-      filter: brightness(80%);
+      filter: brightness(85%);
       position: relative;
     }
 
@@ -31,28 +32,38 @@
     }
 
     .logo {
-      width: 120px;
+      width: 140px;
       position: absolute;
       top: 20px;
-      left: 20px;
+      left: 50px;
+      transform: translateX(-50%);
     }
 
     header h1 {
-      font-size: 2.5rem;
+      font-size: 2.8rem;
+      margin-top: 160px;
       margin-bottom: 0.5rem;
-      text-shadow: 1px 1px 4px rgba(0,0,0,0.5);
+      text-shadow: 2px 2px 5px rgba(0,0,0,0.5);
+      color: #fff;
     }
 
     header p {
       font-style: italic;
-      font-size: 1.2rem;
-      text-shadow: 1px 1px 3px rgba(0,0,0,0.4);
+      font-size: 1.4rem;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.4);
     }
 
     section {
       padding: 2rem;
       max-width: 1000px;
       margin: auto;
+    }
+    
+     section p {
+      margin-bottom: 1.5rem;
+      line-height: 2;
+      text-align: justify;
+      text-justify: inter-ideograph;
     }
 
     .photos {
