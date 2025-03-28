@@ -17,18 +17,18 @@
     }
 
     .leaf {
-      position: fixed;
-      width: 40px;
-      height: 40px;
-      background-image: background-image: url('leaf.png');
+  position: fixed;
+  width: 40px;
+  height: 40px;
+  background-image: url('leaf.png'); /* 這行是關鍵 */
+  background-size: contain;
+  background-repeat: no-repeat;
+  pointer-events: none;
+  opacity: 0.7;
+  z-index: 1;
+  animation: fall 6s linear infinite;
+}
 
-      background-size: contain;
-      background-repeat: no-repeat;
-      pointer-events: none;
-      opacity: 0.7;
-      z-index: 1;
-      animation: fall 6s linear infinite;
-    }
 
     @keyframes fall {
       0% {
