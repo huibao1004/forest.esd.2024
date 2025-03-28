@@ -10,7 +10,7 @@
     body {
       margin: 0;
       font-family: 'Noto Serif TC', serif;
-      background-color: #cae3d1; 
+      background-color: #cae3d1;
       color: #333;
       line-height: 1.8;
     }
@@ -20,7 +20,7 @@
       background-size: cover;
       background-position: center;
       color: white;
-      padding: 10rem 2rem 4rem;
+      padding: 12rem 2rem 6rem;
       text-align: center;
       transition: filter 0.5s ease;
       filter: brightness(85%);
@@ -31,18 +31,10 @@
       filter: brightness(100%);
     }
 
-    .logo {
-      width: 140px;
-      position: absolute;
-      top: 20px;
-      left: 50%;
-      transform: translateX(-50%);
-    }
-
     header h1 {
       font-size: 2.8rem;
-      margin-top: 160px;
-      margin-bottom: 0.5rem;
+      margin-top: 100px;
+      margin-bottom: 1rem;
       text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
       color: #fff;
     }
@@ -50,6 +42,7 @@
     header p {
       font-style: italic;
       font-size: 1.4rem;
+      margin-top: 3rem;
       color: #fff;
       text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
     }
@@ -86,11 +79,28 @@
       transform: scale(1.05);
     }
 
+    .fade-in {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 1s ease, transform 1s ease;
+    }
+
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
     footer {
       background-color: #d9ed92;
-      padding: 2rem;
+      padding: 3rem 2rem;
       text-align: center;
       font-size: 1.1rem;
+      position: relative;
+    }
+
+    .logo-footer {
+      width: 100px;
+      margin-bottom: 1rem;
     }
 
     .contact a {
@@ -98,17 +108,31 @@
       color: #386641;
       text-decoration: none;
       font-weight: bold;
+      font-size: 1.5rem;
     }
   </style>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+          }
+        });
+      });
+
+      document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+    });
+  </script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 <body>
-  <header>
-    <img class="logo" src="IMG_2731.PNG" alt="森永學堂 logo">
+  <header class="fade-in">
     <h1>森永學堂</h1>
     <p>Make Every Day a Walk in the Woods.</p>
   </header>
 
-  <section>
+  <section class="fade-in">
     <h2>關於我們</h2>
     <p>森永學堂是一個致力於推廣森林永續教育的團隊。</p>
     <p>我們相信，透過教育的力量，可以讓更多人了解大自然的價值，培養下一代守護環境的能力。</p>
@@ -125,7 +149,7 @@
     </div>
   </section>
 
-  <section>
+  <section class="fade-in">
     <h2>森度之旅 & 森度思考</h2>
     <p><strong>森度之旅</strong>：我們串連臺大與大溪在地實作夥伴，設計出一日森林體驗活動，結合木藝手作、溯溪探索與自然導覽，讓參與者深度認識森林與文化的連結。</p>
     <p><strong>森度思考</strong>：以「六頂思考帽」為核心，與教師共同思考森林議題。從感性到理性，從觀察到行動，啟發多元的教育策略，賦能教師在課程中實踐永續。</p>
@@ -136,13 +160,14 @@
     </div>
   </section>
 
-  <footer>
+  <footer class="fade-in">
+    <img class="logo-footer" src="IMG_2731.PNG" alt="森永學堂 logo footer">
     <h2>聯絡我們</h2>
     <p>歡迎追蹤我們，了解更多行動成果與最新活動!</p>
     <div class="contact">
-      <a href="https://www.instagram.com/forest.esd_2024/" target="_blank">Instagram</a>
-      <a href="https://www.facebook.com/profile.php?id=61568177459538&locale=zh_TW" target="_blank">Facebook</a>
-      <a href="mailto:forest.esd.2024@gmail.com">Gmail</a>
+      <a href="https://www.instagram.com/forest.esd_2024/" target="_blank"><i class="fab fa-instagram"></i></a>
+      <a href="https://www.facebook.com/profile.php?id=61568177459538&locale=zh_TW" target="_blank"><i class="fab fa-facebook"></i></a>
+      <a href="mailto:forest.esd.2024@gmail.com"><i class="fas fa-envelope"></i></a>
     </div>
   </footer>
 </body>
